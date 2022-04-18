@@ -43,3 +43,8 @@ steps:
     modifyOutputPath: false
   displayName: 'Publish VideoTranslate'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '/usr/share/videoTranslateWebApi/tmp'
+    Contents: '**'
+    TargetFolder: '/usr/share/videoTranslateWebApi/tmp2'
