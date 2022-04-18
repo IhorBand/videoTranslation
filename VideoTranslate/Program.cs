@@ -1,4 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
+var myCors = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myCors,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000",
+                                              "http://www.contoso.com");
+                      });
+});
 
 // Add services to the container.
 
@@ -19,6 +30,8 @@ var app = builder.Build();
 //app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseCors(myCors);
 
 app.UseAuthorization();
 
