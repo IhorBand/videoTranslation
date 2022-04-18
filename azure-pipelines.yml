@@ -34,6 +34,17 @@ steps:
 #    arguments: '--no-restore --no-build'
 #  displayName: 'Run Tests'
 
+- task: CmdLine@2
+  inputs:
+    script: 'systemctl stop videoTranslate.service'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '/usr/share/videoTranslateWebApi'
+    Contents: '**'
+    OverWrite: true
+    TargetFolder: '/usr/share/backup_videoTranslateWebApi'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
@@ -46,7 +57,16 @@ steps:
 - task: ExtractFiles@1
   inputs:
     archiveFilePatterns: '**/publish.zip'
-    destinationFolder: '/usr/share/videoTranslateWebApi/tmp2'
+    destinationFolder: '/usr/share/videoTranslateWebApi'
     cleanDestinationFolder: true
     overwriteExistingFiles: true
   displayName: 'Copy files into Production folder'
+
+- task: CmdLine@2
+  inputs:
+    script: 'systemctl start videoTranslate.service'
+
+- task: CmdLine@2
+  inputs:
+    script: 'systemctl daemon-restart'
+
