@@ -39,12 +39,14 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: '**/VideoTranslate.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore -o /usr/share/videoTranslateWebApi/tmp'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish VideoTranslate'
 
-- task: CopyFiles@2
+- task: ExtractFiles@1
   inputs:
-    SourceFolder: '/usr/share/videoTranslateWebApi/tmp'
-    Contents: '**'
-    TargetFolder: '/usr/share/videoTranslateWebApi/tmp2'
+    archiveFilePatterns: '**/publish.zip'
+    destinationFolder: '/usr/share/videoTranslateWebApi/tmp2'
+    cleanDestinationFolder: true
+    overwriteExistingFiles: true
+  displayName: 'Copy files into Production folder'
