@@ -34,6 +34,14 @@ steps:
 #    arguments: '--no-restore --no-build'
 #  displayName: 'Run Tests'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '/usr/share/videoTranslateWebApi'
+    Contents: '**'
+    OverWrite: true
+    TargetFolder: '/usr/share/backup_videoTranslateWebApi'
+  displayName: 'make a backup'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
@@ -42,3 +50,12 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish VideoTranslate'
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '**/publish.zip'
+    destinationFolder: '/usr/share/videoTranslateWebApi'
+    cleanDestinationFolder: true
+    overwriteExistingFiles: true
+  displayName: 'Copy published files into Production folder'
+
