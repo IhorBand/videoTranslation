@@ -39,6 +39,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: '**/VideoTranslate.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+    arguments: '--configuration $(buildConfiguration) --no-restore -o /usr/share/videoTranslateWebApi/tmp'
     modifyOutputPath: false
   displayName: 'Publish VideoTranslate'
+
