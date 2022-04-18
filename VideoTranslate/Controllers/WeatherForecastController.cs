@@ -3,7 +3,7 @@
 namespace VideoTranslate.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -30,7 +30,7 @@ namespace VideoTranslate.Controllers
             .ToArray();
         }
 
-        [HttpGet(Name = "GetHeh")]
+        [HttpGet("GetHeh")]
         public WeatherForecast GetHeh()
         {
             return new WeatherForecast() { 
