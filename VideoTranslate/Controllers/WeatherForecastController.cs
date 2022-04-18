@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace VideoTranslate.Controllers
 {
@@ -28,6 +28,16 @@ namespace VideoTranslate.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet(Name = "GetHeh")]
+        public WeatherForecast GetHeh()
+        {
+            return new WeatherForecast() { 
+                Date = DateTime.UtcNow,
+                TemperatureC = 1,
+                Summary = "-Шановний,не пийте воду з цього ставка,туди лайно з всього села стікає. - Што ви гаварітє ? Гаварітє па рускі, я вас нє панімаю. - Я кажу двома руками черпай!"
+            };
         }
     }
 }
