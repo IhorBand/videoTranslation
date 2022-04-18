@@ -15,5 +15,30 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/VideoTranslate.csproj'
+  displayName: 'Restore Nuget Packages'
+
+- task: DotNetCoreCLI@2
   inputs: 
     command: 'build'
+    projects: '**/VideoTranslate.csproj'
+    arguments: '--no-restore' 
+  displayName: 'Build projects'
+
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'test'
+#    projects: '**/*Test.csproj'
+#    arguments: '--no-restore --no-build'
+#  displayName: 'Run Tests'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/VideoTranslate.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    modifyOutputPath: false
+  displayName: 'Publish VideoTranslate'
