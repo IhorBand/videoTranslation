@@ -36,7 +36,8 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'systemctl stop videoTranslate.service'
+    script: 'sudo systemctl stop videoTranslate.service'
+  displayName: 'Stop WebAPI'
 
 - task: CopyFiles@2
   inputs:
@@ -44,6 +45,7 @@ steps:
     Contents: '**'
     OverWrite: true
     TargetFolder: '/usr/share/backup_videoTranslateWebApi'
+  displayName: 'make a backup'
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -60,13 +62,15 @@ steps:
     destinationFolder: '/usr/share/videoTranslateWebApi'
     cleanDestinationFolder: true
     overwriteExistingFiles: true
-  displayName: 'Copy files into Production folder'
+  displayName: 'Copy published files into Production folder'
 
 - task: CmdLine@2
   inputs:
-    script: 'systemctl start videoTranslate.service'
+    script: 'sudo systemctl start videoTranslate.service'
+  displayName: 'Start WebApi'
 
 - task: CmdLine@2
   inputs:
-    script: 'systemctl daemon-restart'
+    script: 'sudo systemctl daemon-restart'
+  displayName: 'Refresh service'
 
