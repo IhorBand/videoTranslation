@@ -34,6 +34,12 @@ steps:
 #    arguments: '--no-restore --no-build'
 #  displayName: 'Run Tests'
 
+
+- task: CmdLine@2
+  inputs:
+    script: 'systemctl stop videoTranslate.service'
+  displayName: 'Stop WebAPI'
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '/usr/share/videoTranslateWebApi'
@@ -58,4 +64,9 @@ steps:
     cleanDestinationFolder: true
     overwriteExistingFiles: true
   displayName: 'Copy published files into Production folder'
+
+- task: CmdLine@2
+  inputs:
+    script: 'systemctl start videoTranslate.service'
+  displayName: 'Start WebAPI'
 
