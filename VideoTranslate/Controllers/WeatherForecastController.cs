@@ -72,13 +72,19 @@ namespace VideoTranslate.Controllers
             {
                 new Flow() {
                     Id = new Guid("38890a3c-45f5-40a2-8512-a9952381dd28"),
-                    Name = "Flow1",
+                    Name = "Andrew's Flow",
                     StartMessageId = null,
                     ExpectedSteps = new List<ExpectedStep>()
                 },
                 new Flow() {
-                    Id = Guid.NewGuid(),
-                    Name = "Flow2",
+                    Id = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"),
+                    Name = "Roman's Flow",
+                    StartMessageId = null,
+                    ExpectedSteps = new List<ExpectedStep>()
+                },
+                new Flow() {
+                    Id = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"),
+                    Name = "Ihor's Flow",
                     StartMessageId = null,
                     ExpectedSteps = new List<ExpectedStep>()
                 }
@@ -94,6 +100,32 @@ namespace VideoTranslate.Controllers
                 {
                     new ExpectedStep() { Id = 1, Name = "Step1Test", ParentId = null, FlowId = new Guid("38890a3c-45f5-40a2-8512-a9952381dd28"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
                     new ExpectedStep() { Id = 2, Name = "Step2Test", ParentId = 1, FlowId = new Guid("38890a3c-45f5-40a2-8512-a9952381dd28"), ExpectedStepMessages = new List<ExpectedStepMessage>()}
+                };
+            }
+            else if (flowid == new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"))
+            {
+                return new List<ExpectedStep>()
+                {
+                    new ExpectedStep() { Id = 1, Name = "Step1Test", ParentId = null, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 2, Name = "Step2Test", ParentId = 1, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 3, Name = "Step 3", ParentId = 2, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 4, Name = "Step 4", ParentId = 2, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 5, Name = "Step 5", ParentId = 3, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 6, Name = "Step 6", ParentId = 4, FlowId = new Guid("443eec7a-e0d9-47d5-8d51-e84a7bb13e29"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                };
+            }
+            else if (flowid == new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"))
+            {
+                return new List<ExpectedStep>()
+                {
+                    new ExpectedStep() { Id = 1, Name = "Step1Test", ParentId = null, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 2, Name = "Step2Test", ParentId = 1, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 3, Name = "Step2Test", ParentId = 2, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 4, Name = "Step2Test", ParentId = 3, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 5, Name = "Step2Test", ParentId = 3, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 6, Name = "Step2Test", ParentId = 4, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 7, Name = "Step2Test", ParentId = 5, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
+                    new ExpectedStep() { Id = 8, Name = "Step2Test", ParentId = 5, FlowId = new Guid("1edaefba-21cc-481a-9798-b7dcc404685f"), ExpectedStepMessages = new List<ExpectedStepMessage>()},
                 };
             }
             return new List<ExpectedStep>();
