@@ -65,6 +65,17 @@ namespace VideoTranslate.Controllers
             };
         }
 
+        [HttpGet("GetHehYura")]
+        public WeatherForecast GetHehYura()
+        {
+            return new WeatherForecast()
+            {
+                Date = DateTime.UtcNow,
+                TemperatureC = 1,
+                Summary = "-Шановний,не пийте воду з цього ставка,туди лайно з всього села стікає. - Што ви гаварітє ? Гаварітє па рускі, я вас нє панімаю. - Я кажу двома руками черпай!"
+            };
+        }
+
         [HttpGet("Flow")]
         public List<Flow> GetFlow()
         {
