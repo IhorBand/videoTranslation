@@ -36,8 +36,6 @@ namespace VideoTranslate.Service.Services
                 nameof(VideoService),
                 () =>
                 {
-                    this.logger.LogInformation("VideoService Started");
-                    this.logger.LogInformation("Quiting VideoService");
                     return this.videoRepository.GetAllVideos();
                 },
                 nameof(this.GetAllVideos));
