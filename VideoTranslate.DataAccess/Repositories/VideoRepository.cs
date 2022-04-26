@@ -34,10 +34,14 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoRepository),
                 () =>
                 {
+                    this.logger.LogInformation("Started VideoRepository");
+
                     var sql = "SELECT * FROM Videos";
 
+                    this.logger.LogWarning("Executing SQL Query");
                     var videos = this.Query<Video>(sql);
 
+                    this.logger.LogInformation("Quiting VideoRepository");
                     return videos;
                 },
                 nameof(VideoRepository));

@@ -74,8 +74,11 @@ namespace VideoTranslate.WebAPI
             this.SetupTracing(services);
             */
 
+            var connectionStrings =
+                this.Configuration.GetSection("ConnectionStrings").Get<ConnectionStringConfiguration>();
+
             services.AddHealthChecks()
-                .AddSqlServer(this.Configuration["ConnectionStrings:Main"]);
+                .AddSqlServer(connectionStrings.Main);
             /*
             this.SetupJWTServices(services);
             */

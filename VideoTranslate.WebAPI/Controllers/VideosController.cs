@@ -26,8 +26,11 @@ namespace VideoTranslate.WebAPI.Controllers
         [HttpGet("All")]
         public IEnumerable<Video> Get()
         {
+            this.logger.LogInformation("VideoController Started");
             var videos = this.videoService.GetAllVideos();
+            this.logger.LogError("Wow, we are trying to map properties.");
             var videoModels = this.mapper.Map<Video[]>(videos);
+            this.logger.LogInformation("quiting VideoController");
             return videoModels;
         }
     }

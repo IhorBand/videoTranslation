@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using VideoTranslate.Shared.Abstractions.Repositories;
 using VideoTranslate.Shared.Abstractions.Services;
 using VideoTranslate.Shared.DTO;
@@ -18,11 +19,14 @@ namespace VideoTranslate.Service.Services
         private static readonly ActivitySource ActivitySource = new ActivitySource(ActivitySourceName, Version?.ToString());
 
         private readonly IVideoRepository videoRepository;
+        private readonly ILogger<VideoService> logger;
 
         public VideoService(
-            IVideoRepository videoRepository)
+            IVideoRepository videoRepository,
+            ILogger<VideoService> logger)
         {
             this.videoRepository = videoRepository ?? throw new ArgumentNullException(nameof(videoRepository));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public List<Video> GetAllVideos()
@@ -32,6 +36,8 @@ namespace VideoTranslate.Service.Services
                 nameof(VideoService),
                 () =>
                 {
+                    this.logger.LogInformation("VideoService Started");
+                    this.logger.LogInformation("Quiting VideoService");
                     return this.videoRepository.GetAllVideos();
                 },
                 nameof(this.GetAllVideos));
