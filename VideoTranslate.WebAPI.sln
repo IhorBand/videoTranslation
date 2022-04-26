@@ -5,6 +5,14 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoTranslate.WebAPI", "VideoTranslate.WebAPI\VideoTranslate.WebAPI.csproj", "{5DC27786-E16F-4150-B227-F641557CB777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoTranslate.DataAccess", "VideoTranslate.DataAccess\VideoTranslate.DataAccess.csproj", "{F7B60FD6-71D0-434E-92BD-7D87DD90C20C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoTranslate.Service", "VideoTranslate.Service\VideoTranslate.Service.csproj", "{AB7CFFE9-0BDD-4FCA-A1BC-78CE5C03F141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoTranslate.Shared", "VideoTranslate.Shared\VideoTranslate.Shared.csproj", "{216DEC7E-FB02-4952-9EB9-75876D756228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoTranslate.WebApiClient", "VideoTranslate.WebApiClient\VideoTranslate.WebApiClient.csproj", "{DF12D679-269E-40AA-9ED9-2ABDC5A4412A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{5DC27786-E16F-4150-B227-F641557CB777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC27786-E16F-4150-B227-F641557CB777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC27786-E16F-4150-B227-F641557CB777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B60FD6-71D0-434E-92BD-7D87DD90C20C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B60FD6-71D0-434E-92BD-7D87DD90C20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B60FD6-71D0-434E-92BD-7D87DD90C20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B60FD6-71D0-434E-92BD-7D87DD90C20C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB7CFFE9-0BDD-4FCA-A1BC-78CE5C03F141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7CFFE9-0BDD-4FCA-A1BC-78CE5C03F141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7CFFE9-0BDD-4FCA-A1BC-78CE5C03F141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7CFFE9-0BDD-4FCA-A1BC-78CE5C03F141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216DEC7E-FB02-4952-9EB9-75876D756228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216DEC7E-FB02-4952-9EB9-75876D756228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216DEC7E-FB02-4952-9EB9-75876D756228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216DEC7E-FB02-4952-9EB9-75876D756228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF12D679-269E-40AA-9ED9-2ABDC5A4412A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF12D679-269E-40AA-9ED9-2ABDC5A4412A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF12D679-269E-40AA-9ED9-2ABDC5A4412A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF12D679-269E-40AA-9ED9-2ABDC5A4412A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

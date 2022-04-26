@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../VideoTranslate.Shared.targets" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VideoTranslate.DataAccess\VideoTranslate.DataAccess.csproj" />
+    <ProjectReference Include="..\VideoTranslate.Shared\VideoTranslate.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

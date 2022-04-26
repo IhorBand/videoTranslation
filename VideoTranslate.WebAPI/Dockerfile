@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["VideoTranslate.WebAPI/VideoTranslate.WebAPI.csproj", "VideoTranslate/"]
+COPY ["VideoTranslate.WebAPI/VideoTranslate.WebAPI.csproj", "VideoTranslate.WebAPI/"]
 RUN dotnet restore "VideoTranslate.WebAPI/VideoTranslate.WebAPI.csproj"
 COPY . .
 WORKDIR "/src/VideoTranslate.WebAPI"
