@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace VideoTranslate.Controllers
+namespace VideoTranslate.WebAPI.Controllers
 {
     public class Flow
     {

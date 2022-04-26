@@ -1,4 +1,4 @@
-namespace VideoTranslate
+namespace VideoTranslate.WebAPI
 {
     public class WeatherForecast
     {

@@ -17,13 +17,13 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: '**/VideoTranslate.csproj'
+    projects: '**/VideoTranslate.WebAPI.csproj'
   displayName: 'Restore Nuget Packages'
 
 - task: DotNetCoreCLI@2
   inputs: 
     command: 'build'
-    projects: '**/VideoTranslate.csproj'
+    projects: '**/VideoTranslate.WebAPI.csproj'
     arguments: '--no-restore' 
   displayName: 'Build projects'
 
@@ -52,7 +52,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/VideoTranslate.csproj'
+    projects: '**/VideoTranslate.WebAPI.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish VideoTranslate'
