@@ -118,7 +118,7 @@ if (!result.Successful)
     Console.WriteLine(result.Error);
     Console.ResetColor();
 #if DEBUG
-        Console.ReadLine();
+    Console.ReadLine();
 #endif
     return -1;
 }
