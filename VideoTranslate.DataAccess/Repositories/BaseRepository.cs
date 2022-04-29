@@ -26,6 +26,15 @@ namespace VideoTranslate.DataAccess.Repositories
             }
         }
 
+        protected T QuerySingle<T>(string sql, object? parameters = null)
+        {
+            using (DbConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                return connection.QuerySingle<T>(sql, parameters);
+            }
+        }
+
         protected List<T> QueryStoredProcedure<T>(string storedProcedureName, object? parameters = null)
         {
             using (DbConnection connection = new SqlConnection(this.connectionString))

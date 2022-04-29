@@ -29,7 +29,19 @@ namespace VideoTranslate.Service.Services
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public List<Video> GetAllVideos()
+        public VideoInfo GetVideoById(Guid videoInfoId)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoService),
+                () =>
+                {
+                    return this.videoRepository.GetVideoById(videoInfoId);
+                },
+                nameof(this.GetVideoById));
+        }
+
+        public List<VideoInfo> GetAllVideos()
         {
             return this.TraceAction(
                 ActivitySource,
@@ -39,6 +51,20 @@ namespace VideoTranslate.Service.Services
                     return this.videoRepository.GetAllVideos();
                 },
                 nameof(this.GetAllVideos));
+        }
+
+        public VideoInfo InsertVideo(VideoInfo videoInfo)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoService),
+                () =>
+                {
+                    var videoInfoId = this.videoRepository.InsertVideo(videoInfo);
+                    var videoInfoInserted = this.videoRepository.GetVideoById(videoInfoId);
+                    return videoInfoInserted;
+                },
+                nameof(this.InsertVideo));
         }
     }
 }

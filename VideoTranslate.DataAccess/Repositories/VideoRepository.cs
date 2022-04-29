@@ -27,24 +27,63 @@ namespace VideoTranslate.DataAccess.Repositories
             this.logger = logger;
         }
 
-        public List<Video> GetAllVideos()
+        public VideoInfo GetVideoById(Guid videoInfoId)
         {
             return this.TraceAction(
                 ActivitySource,
                 nameof(VideoRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM Videos";
+                    var sql = "SELECT * FROM VideoInfo WHERE Id = @Id";
+                    var video = this.ExecuteScalar<VideoInfo>(sql, new { Id = videoInfoId });
+                    return video;
+                },
+                nameof(this.GetVideoById));
+        }
 
-                    var stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    var videos = this.Query<Video>(sql);
-                    stopwatch.Stop();
-                    this.logger.LogWarning("Procedure returned something, elapsed time: " + stopwatch.ElapsedMilliseconds);
-
+        public List<VideoInfo> GetAllVideos()
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoRepository),
+                () =>
+                {
+                    var sql = "SELECT * FROM VideoInfo";
+                    var videos = this.Query<VideoInfo>(sql);
                     return videos;
                 },
-                nameof(VideoRepository));
+                nameof(this.GetAllVideos));
+        }
+
+        public Guid InsertVideo(VideoInfo videoInfo)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoRepository),
+                () =>
+                {
+                    var sql = @"INSERT INTO VideoInfo
+                        (
+                            [Name], 
+                            [Description]
+                        ) 
+                        VALUES
+                        (
+                            @Name, 
+                            @Description
+                        )";
+
+                    var videoId = this.QuerySingle<Guid>(
+                        sql,
+                        new
+                        {
+                            Name = videoInfo.Name,
+                            Description = videoInfo.Description
+                        });
+
+                    return videoId;
+                },
+                nameof(this.InsertVideo));
         }
     }
 }

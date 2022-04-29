@@ -4,16 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VideoTranslate.WebApiClient.DTO
+namespace VideoTranslate.Shared.DTO
 {
-    public record Video
+    public class VideoInfo
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-
-        public Video()
-        {
-            this.Name = string.Empty;
-        }
+        public string Description { get; set; }
     }
 }
