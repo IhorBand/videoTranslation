@@ -34,8 +34,8 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM VideoInfo WHERE Id = @Id";
-                    var video = this.ExecuteScalar<VideoInfo>(sql, new { Id = videoInfoId });
+                    var sql = "SELECT * FROM VideoInfo WHERE Id = '@Id'";
+                    var video = this.QuerySingle<VideoInfo>(sql, new { Id = videoInfoId });
                     return video;
                 },
                 nameof(this.GetVideoById));
