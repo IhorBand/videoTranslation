@@ -66,7 +66,8 @@ namespace VideoTranslate.DataAccess.Repositories
                         (
                             [Name], 
                             [Description]
-                        ) 
+                        )
+                        OUTPUT INSERTED.Id
                         VALUES
                         (
                             @Name, 
