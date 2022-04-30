@@ -50,7 +50,9 @@ namespace VideoTranslate.DataAccess.Repositories
                             [FileServerId],
                             [FileTypeId],
                             [Size], 
-                            [Extension]
+                            [Extension],
+                            [FullPath],
+                            [Url]
                         )
                         OUTPUT INSERTED.Id
                         VALUES
@@ -59,7 +61,9 @@ namespace VideoTranslate.DataAccess.Repositories
                             @FileServerId,
                             @FileTypeId,
                             @Size,
-                            @Extension
+                            @Extension,
+                            @FullPath,
+                            @Url
                         )";
 
                     var fileId = this.QuerySingle<Guid>(
@@ -70,7 +74,9 @@ namespace VideoTranslate.DataAccess.Repositories
                             FileServerId = file.FileServerId,
                             FileTypeId = file.FileTypeId,
                             Size = file.Size,
-                            Extension = file.Extension
+                            Extension = file.Extension,
+                            FullPath = file.FullPath,
+                            Url = file.Url
                         });
 
                     return fileId;

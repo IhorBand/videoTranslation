@@ -47,7 +47,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 {
                     var sql = @"INSERT INTO [dbo].[VideoFile]
                         (
-                            [Name], 
+                            [VideoInfoId], 
                             [FileId],
                             [VideoTypeId],
                             [ResolutionWidth],
@@ -56,7 +56,7 @@ namespace VideoTranslate.DataAccess.Repositories
                         OUTPUT INSERTED.Id
                         VALUES
                         (
-                            @Name, 
+                            @VideoInfoId, 
                             @FileId,
                             @VideoTypeId,
                             @ResolutionWidth,
@@ -67,7 +67,7 @@ namespace VideoTranslate.DataAccess.Repositories
                         sql,
                         new
                         {
-                            Name = videoFile.VideoInfoId,
+                            VideoInfoId = videoFile.VideoInfoId,
                             FileId = videoFile.FileId,
                             VideoTypeId = videoFile.VideoTypeId,
                             ResolutionWidth = videoFile.ResolutionWidth,
