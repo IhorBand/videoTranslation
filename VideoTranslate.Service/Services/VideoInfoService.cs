@@ -29,19 +29,19 @@ namespace VideoTranslate.Service.Services
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public VideoInfo GetVideoById(Guid videoInfoId)
+        public VideoInfo GetVideoInfoById(Guid videoInfoId)
         {
             return this.TraceAction(
                 ActivitySource,
                 nameof(VideoInfoService),
                 () =>
                 {
-                    return this.videoRepository.GetVideoById(videoInfoId);
+                    return this.videoRepository.GetVideoInfoById(videoInfoId);
                 },
-                nameof(this.GetVideoById));
+                nameof(this.GetVideoInfoById));
         }
 
-        public List<VideoInfo> GetAllVideos()
+        public List<VideoInfo> GetAllVideoInfos()
         {
             return this.TraceAction(
                 ActivitySource,
@@ -50,10 +50,22 @@ namespace VideoTranslate.Service.Services
                 {
                     return this.videoRepository.GetAllVideoInfos();
                 },
-                nameof(this.GetAllVideos));
+                nameof(this.GetAllVideoInfos));
         }
 
-        public VideoInfo InsertVideo(VideoInfo videoInfo)
+        public void UpdateVideoInfo(VideoInfo videoInfo)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoInfoService),
+                () =>
+                {
+                    this.videoRepository.UpdateVideoInfo(videoInfo);
+                },
+                nameof(this.InsertVideoInfo));
+        }
+
+        public VideoInfo InsertVideoInfo(VideoInfo videoInfo)
         {
             return this.TraceAction(
                 ActivitySource,
@@ -61,10 +73,10 @@ namespace VideoTranslate.Service.Services
                 () =>
                 {
                     var videoInfoId = this.videoRepository.InsertVideoInfo(videoInfo);
-                    var videoInfoInserted = this.videoRepository.GetVideoById(videoInfoId);
+                    var videoInfoInserted = this.videoRepository.GetVideoInfoById(videoInfoId);
                     return videoInfoInserted;
                 },
-                nameof(this.InsertVideo));
+                nameof(this.InsertVideoInfo));
         }
     }
 }

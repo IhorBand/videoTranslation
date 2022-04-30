@@ -27,7 +27,7 @@ namespace VideoTranslate.DataAccess.Repositories
             this.logger = logger;
         }
 
-        public VideoInfo GetVideoById(Guid videoInfoId)
+        public VideoInfo GetVideoInfoById(Guid videoInfoId)
         {
             return this.TraceAction(
                 ActivitySource,
@@ -38,7 +38,7 @@ namespace VideoTranslate.DataAccess.Repositories
                     var video = this.QuerySingle<VideoInfo>(sql, new { Id = videoInfoId });
                     return video;
                 },
-                nameof(this.GetVideoById));
+                nameof(this.GetVideoInfoById));
         }
 
         public List<VideoInfo> GetAllVideoInfos()
@@ -53,6 +53,31 @@ namespace VideoTranslate.DataAccess.Repositories
                     return videos;
                 },
                 nameof(this.GetAllVideoInfos));
+        }
+
+        public void UpdateVideoInfo(VideoInfo videoInfo)
+        {
+            this.TraceAction(
+                ActivitySource,
+                nameof(VideoInfoRepository),
+                () =>
+                {
+                    var sql = @"UPDATE [dbo].[VideoInfo] 
+                        SET
+                            Name = @Name,
+                            Description = @Description
+                        WHERE Id = @Id";
+
+                    var prms = new
+                    {
+                        Id = videoInfo.Id,
+                        Name = videoInfo.Name,
+                        Description = videoInfo.Description
+                    };
+
+                    this.Execute(sql, prms);
+                },
+                nameof(this.UpdateVideoInfo));
         }
 
         public Guid InsertVideoInfo(VideoInfo videoInfo)

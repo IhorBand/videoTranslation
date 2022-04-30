@@ -4,8 +4,9 @@ namespace VideoTranslate.Shared.Abstractions.Services
 {
     public interface IVideoInfoService
     {
-        VideoInfo GetVideoById(Guid videoInfoId);
-        List<VideoInfo> GetAllVideos();
-        VideoInfo InsertVideo(VideoInfo videoInfo);
+        VideoInfo GetVideoInfoById(Guid videoInfoId);
+        List<VideoInfo> GetAllVideoInfos();
+        void UpdateVideoInfo(VideoInfo videoInfo);
+        VideoInfo InsertVideoInfo(VideoInfo videoInfo);
     }
 }

@@ -4,8 +4,9 @@ namespace VideoTranslate.Shared.Abstractions.Repositories
 {
     public interface IVideoInfoRepository
     {
-        VideoInfo GetVideoById(Guid videoInfoId);
+        VideoInfo GetVideoInfoById(Guid videoInfoId);
         List<VideoInfo> GetAllVideoInfos();
+        void UpdateVideoInfo(VideoInfo videoInfo);
         Guid InsertVideoInfo(VideoInfo videoInfo);
     }
 }

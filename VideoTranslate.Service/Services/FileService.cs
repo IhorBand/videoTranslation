@@ -94,7 +94,7 @@ namespace VideoTranslate.Service.Services
                         ResolutionWidth = 0
                     });
 
-                    var videoInfo = this.videoInfoRepository.GetVideoById(videoInfoId);
+                    var videoInfo = this.videoInfoRepository.GetVideoInfoById(videoInfoId);
 
                     return videoInfo;
                 },

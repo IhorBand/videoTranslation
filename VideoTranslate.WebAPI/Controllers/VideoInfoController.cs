@@ -26,7 +26,7 @@ namespace VideoTranslate.WebAPI.Controllers
         [HttpGet("All")]
         public IEnumerable<VideoInfo> Get()
         {
-            var videoInfos = this.videoService.GetAllVideos();
+            var videoInfos = this.videoService.GetAllVideoInfos();
             var videoInfoModels = this.mapper.Map<VideoInfo[]>(videoInfos);
             return videoInfoModels;
         }
@@ -34,18 +34,17 @@ namespace VideoTranslate.WebAPI.Controllers
         [HttpGet("{videoInfoId}")]
         public VideoInfo GetById([FromRoute(Name = "videoInfoId")] Guid videoInfoId)
         {
-            var videoInfo = this.videoService.GetVideoById(videoInfoId);
+            var videoInfo = this.videoService.GetVideoInfoById(videoInfoId);
             var videoInfoModel = this.mapper.Map<VideoInfo>(videoInfo);
             return videoInfoModel;
         }
 
-        [HttpPut("")]
-        public VideoInfo InsertVideoInfo([FromBody] VideoInfo videoInfo)
+        [HttpPost("")]
+        public Guid UpdateVideoInfo([FromBody] VideoInfo videoInfo)
         {
             var videoInfoInsertModel = this.mapper.Map<Shared.DTO.VideoInfo>(videoInfo);
-            var savedVideoInfo = this.videoService.InsertVideo(videoInfoInsertModel);
-            var videoInfoModel = this.mapper.Map<VideoInfo>(savedVideoInfo);
-            return videoInfoModel;
+            this.videoService.UpdateVideoInfo(videoInfoInsertModel);
+            return videoInfoInsertModel.Id;
         }
     }
 }
