@@ -10,17 +10,20 @@ namespace VideoTranslate.WebAPI.Controllers
     public class VideoInfoController : ControllerBase
     {
         private readonly ILogger<VideoInfoController> logger;
-        private readonly IVideoInfoService videoService;
         private readonly IMapper mapper;
+        private readonly IVideoInfoService videoService;
+        private readonly IFileService fileService;
 
         public VideoInfoController(
             ILogger<VideoInfoController> logger,
+            IMapper mapper,
             IVideoInfoService videoService,
-            IMapper mapper)
+            IFileService fileService)
         {
             this.logger = logger;
-            this.videoService = videoService;
             this.mapper = mapper;
+            this.videoService = videoService;
+            this.fileService = fileService;
         }
 
         [HttpGet("All")]
@@ -45,6 +48,24 @@ namespace VideoTranslate.WebAPI.Controllers
             var videoInfoInsertModel = this.mapper.Map<Shared.DTO.VideoInfo>(videoInfo);
             this.videoService.UpdateVideoInfo(videoInfoInsertModel);
             return videoInfoInsertModel.Id;
+        }
+
+        [HttpPost("UploadVideo")]
+        [RequestSizeLimit(1073741824)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 1073741824)]
+        public VideoInfo UploadVideoFile()
+        {
+            var file = this.fileService.UploadVideoFile(this.Request.Form.Files[0]);
+            var fileModel = this.mapper.Map<VideoInfo>(file);
+            return fileModel;
+        }
+
+        [HttpPost("{videoInfoId}/UploadThumbnail")]
+        public VideoInfo UploadThumbnail([FromRoute(Name = "videoInfoId")] Guid videoInfoId)
+        {
+            var file = this.fileService.UploadThumbnail(this.Request.Form.Files[0], videoInfoId);
+            var fileModel = this.mapper.Map<VideoInfo>(file);
+            return fileModel;
         }
     }
 }

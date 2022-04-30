@@ -1,0 +1,2 @@
+ALTER TABLE [dbo].[VideoInfo] ADD ThumbnailFile UNIQUEIDENTIFIER NULL
+GO

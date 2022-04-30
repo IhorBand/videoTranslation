@@ -100,5 +100,55 @@ namespace VideoTranslate.Service.Services
                 },
                 nameof(this.UploadVideoFile));
         }
+
+        public VideoInfo UploadThumbnail(IFormFile file, Guid videoInfoId)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(FileService),
+                () =>
+                {
+                    var fileServer = this.fileServerRepository.GetActiveFileServer();
+                    fileServer.Path += "images/";
+                    fileServer.Url += "images/";
+
+                    var fileExtension = Path.GetExtension(file.FileName);
+                    if (string.IsNullOrEmpty(fileExtension))
+                    {
+                        fileExtension = ".jpg";
+                    }
+
+                    var filename = Guid.NewGuid().ToString() + fileExtension;
+
+                    var filePath = Path.Combine(fileServer.Path, filename);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    var fileSaveModel = new Shared.DTO.File()
+                    {
+                        FileName = filename,
+                        Extension = fileExtension,
+                        FileServerId = fileServer.Id,
+                        FileTypeId = FileType.Image,
+                        Size = file.Length,
+                        FullPath = filePath,
+                        Url = fileServer.Url + filename,
+                    };
+
+                    var fileId = this.fileRepository.InsertFile(fileSaveModel);
+
+                    var videoInfo = this.videoInfoRepository.GetVideoInfoById(videoInfoId);
+
+                    videoInfo.ThumbnailFileId = fileId;
+
+                    this.videoInfoRepository.UpdateVideoInfo(videoInfo);
+
+                    return videoInfo;
+                },
+                nameof(this.UploadVideoFile));
+        }
     }
 }
