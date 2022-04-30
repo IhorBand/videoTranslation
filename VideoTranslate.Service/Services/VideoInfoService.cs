@@ -55,7 +55,7 @@ namespace VideoTranslate.Service.Services
 
         public void UpdateVideoInfo(VideoInfo videoInfo)
         {
-            return this.TraceAction(
+            this.TraceAction(
                 ActivitySource,
                 nameof(VideoInfoService),
                 () =>
