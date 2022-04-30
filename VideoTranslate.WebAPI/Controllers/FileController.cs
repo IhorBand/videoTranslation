@@ -11,8 +11,6 @@ namespace VideoTranslate.WebAPI.Controllers
     [Route("api/[controller]")]
     public class FileController : ControllerBase
     {
-        private const long MaxVideoFileSize = 1024L * 1024L * 1024L; // 1GB
-
         private readonly ILogger<FileController> logger;
         private readonly IMapper mapper;
         private readonly IFileService fileService;
@@ -28,9 +26,8 @@ namespace VideoTranslate.WebAPI.Controllers
         }
 
         [HttpPost("Video/Upload")]
-        [DisableRequestSizeLimit]
-        [RequestSizeLimit(MaxVideoFileSize)]
-        [RequestFormLimits(MultipartBodyLengthLimit = MaxVideoFileSize)]
+        [RequestSizeLimit(1073741824)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 1073741824)]
         public VideoInfo UploadVideoFile()
         {
             var file = this.fileService.UploadVideoFile(this.Request.Form.Files[0]);

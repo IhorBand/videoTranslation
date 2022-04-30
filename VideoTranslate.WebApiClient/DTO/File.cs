@@ -23,6 +23,7 @@ namespace VideoTranslate.WebApiClient.DTO
             this.FileName = string.Empty;
             this.Extension = string.Empty;
             this.FullPath = string.Empty;
+            this.Url = string.Empty;
         }
     }
 }
