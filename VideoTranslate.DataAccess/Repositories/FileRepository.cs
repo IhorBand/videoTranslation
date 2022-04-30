@@ -30,7 +30,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(FileRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM File WHERE Id = @Id";
+                    var sql = "SELECT * FROM [dbo].[File] WHERE Id = @Id";
                     var file = this.QuerySingle<Shared.DTO.File>(sql, new { Id = fileId });
                     return file;
                 },
@@ -44,7 +44,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(FileRepository),
                 () =>
                 {
-                    var sql = @"INSERT INTO File
+                    var sql = @"INSERT INTO [dbo].[File]
                         (
                             [FileName], 
                             [FileServerId],

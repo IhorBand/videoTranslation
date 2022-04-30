@@ -31,7 +31,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoFileRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM VideoFile WHERE VideoInfoId = @VideoInfoId";
+                    var sql = "SELECT * FROM [dbo].[VideoFile] WHERE VideoInfoId = @VideoInfoId";
                     var videoInfos = this.Query<VideoFile>(sql, new { VideoInfoId = videoInfoId });
                     return videoInfos;
                 },
@@ -45,7 +45,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoFileRepository),
                 () =>
                 {
-                    var sql = @"INSERT INTO VideoFile
+                    var sql = @"INSERT INTO [dbo].[VideoFile]
                         (
                             [Name], 
                             [FileId],

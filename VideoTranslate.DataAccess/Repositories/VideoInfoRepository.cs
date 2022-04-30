@@ -34,7 +34,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoInfoRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM VideoInfo WHERE Id = @Id";
+                    var sql = "SELECT * FROM [dbo].[VideoInfo] WHERE Id = @Id";
                     var video = this.QuerySingle<VideoInfo>(sql, new { Id = videoInfoId });
                     return video;
                 },
@@ -48,7 +48,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoInfoRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM VideoInfo";
+                    var sql = "SELECT * FROM [dbo].[VideoInfo]";
                     var videos = this.Query<VideoInfo>(sql);
                     return videos;
                 },
@@ -62,7 +62,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(VideoInfoRepository),
                 () =>
                 {
-                    var sql = @"INSERT INTO VideoInfo
+                    var sql = @"INSERT INTO [dbo].[VideoInfo]
                         (
                             [Name], 
                             [Description]

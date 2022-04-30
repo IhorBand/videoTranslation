@@ -34,7 +34,7 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(FileServerRepository),
                 () =>
                 {
-                    var sql = "SELECT * FROM FileServer WHERE IsActive = 1";
+                    var sql = "SELECT * FROM [dbo].[FileServer] WHERE IsActive = 1";
                     var video = this.QuerySingle<FileServer>(sql);
                     return video;
                 },
