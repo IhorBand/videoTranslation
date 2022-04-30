@@ -51,11 +51,13 @@ namespace VideoTranslate.Service.Services
                     fileServer.Path += "videos/";
                     fileServer.Url += "videos/";
 
-                    var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.ToString().Trim('"');
-                    if (filename == null)
+                    var fileExtension = Path.GetExtension(file.FileName);
+                    if (string.IsNullOrEmpty(fileExtension))
                     {
-                        filename = Guid.NewGuid().ToString() + ".mp4";
+                        fileExtension = ".mp4";
                     }
+
+                    var filename = Guid.NewGuid().ToString() + fileExtension;
 
                     var filePath = Path.Combine(fileServer.Path, filename);
 
@@ -67,7 +69,7 @@ namespace VideoTranslate.Service.Services
                     var fileSaveModel = new Shared.DTO.File()
                     {
                         FileName = filename,
-                        Extension = filename.Length > 0 && filename.IndexOf('.') >= 0 ? filename.Substring(filename.IndexOf('.') + 1) : string.Empty,
+                        Extension = fileExtension,
                         FileServerId = fileServer.Id,
                         FileTypeId = FileType.Video,
                         Size = file.Length,
