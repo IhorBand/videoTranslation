@@ -10,12 +10,12 @@ namespace VideoTranslate.WebAPI.Controllers
     public class VideoInfoController : ControllerBase
     {
         private readonly ILogger<VideoInfoController> logger;
-        private readonly IVideoService videoService;
+        private readonly IVideoInfoService videoService;
         private readonly IMapper mapper;
 
         public VideoInfoController(
             ILogger<VideoInfoController> logger,
-            IVideoService videoService,
+            IVideoInfoService videoService,
             IMapper mapper)
         {
             this.logger = logger;

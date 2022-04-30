@@ -190,9 +190,13 @@ namespace VideoTranslate.WebAPI
 
             services.AddSingleton<IPasswordValidator, PasswordValidator>();
 
-            services.AddScoped<IVideoRepository, VideoRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IFileServerRepository, FileServerRepository>();
+            services.AddScoped<IVideoFileRepository, VideoFileRepository>();
+            services.AddScoped<IVideoInfoRepository, VideoInfoRepository>();
 
-            services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<IVideoInfoService, VideoInfoService>();
+            services.AddScoped<IFileService, FileService>();
         }
 
         private Task WriteResponseAsync(HttpContext httpContext, HealthReport result)

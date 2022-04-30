@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace VideoTranslate.Shared.DTO
 {
-    public class VideoInfo
+    public class FileServer
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Path { get; set; }
+        public string Url { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedOnUtc { get; set; }
     }
 }

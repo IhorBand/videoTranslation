@@ -1,0 +1,11 @@
+ALTER TABLE [dbo].[FileServer] ADD [CreatedOnUtc] DATETIME CONSTRAINT [DF_FileServer_CreatedOnUtc] DEFAULT(GETUTCDATE())
+GO
+
+ALTER TABLE [dbo].[File] ADD [CreatedOnUtc] DATETIME CONSTRAINT [DF_File_CreatedOnUtc] DEFAULT(GETUTCDATE())
+GO
+
+ALTER TABLE [dbo].[VideoInfo] ADD [CreatedOnUtc] DATETIME CONSTRAINT [DF_VideoInfo_CreatedOnUtc] DEFAULT(GETUTCDATE())
+GO
+
+ALTER TABLE [dbo].[VideoFile] ADD [CreatedOnUtc] DATETIME CONSTRAINT [DF_VideoFile_CreatedOnUtc] DEFAULT(GETUTCDATE())
+GO

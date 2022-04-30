@@ -11,17 +11,17 @@ using VideoTranslate.Shared.DTO.Configuration;
 
 namespace VideoTranslate.DataAccess.Repositories
 {
-    public class VideoRepository : BaseRepository, IVideoRepository
+    public class VideoInfoRepository : BaseRepository, IVideoInfoRepository
     {
-        public const string ActivitySourceName = nameof(VideoRepository);
+        public const string ActivitySourceName = nameof(VideoInfoRepository);
 
-        private static readonly Version Version = typeof(VideoRepository).Assembly.GetName().Version;
+        private static readonly Version Version = typeof(VideoInfoRepository).Assembly.GetName().Version;
         private static readonly ActivitySource ActivitySource = new ActivitySource(ActivitySourceName, Version?.ToString());
-        private readonly ILogger<VideoRepository> logger;
+        private readonly ILogger<VideoInfoRepository> logger;
 
-        public VideoRepository(
+        public VideoInfoRepository(
             ConnectionStringConfiguration connectionStringConfiguration,
-            ILogger<VideoRepository> logger)
+            ILogger<VideoInfoRepository> logger)
             : base(connectionStringConfiguration.Main)
         {
             this.logger = logger;
@@ -31,7 +31,7 @@ namespace VideoTranslate.DataAccess.Repositories
         {
             return this.TraceAction(
                 ActivitySource,
-                nameof(VideoRepository),
+                nameof(VideoInfoRepository),
                 () =>
                 {
                     var sql = "SELECT * FROM VideoInfo WHERE Id = @Id";
@@ -41,25 +41,25 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(this.GetVideoById));
         }
 
-        public List<VideoInfo> GetAllVideos()
+        public List<VideoInfo> GetAllVideoInfos()
         {
             return this.TraceAction(
                 ActivitySource,
-                nameof(VideoRepository),
+                nameof(VideoInfoRepository),
                 () =>
                 {
                     var sql = "SELECT * FROM VideoInfo";
                     var videos = this.Query<VideoInfo>(sql);
                     return videos;
                 },
-                nameof(this.GetAllVideos));
+                nameof(this.GetAllVideoInfos));
         }
 
-        public Guid InsertVideo(VideoInfo videoInfo)
+        public Guid InsertVideoInfo(VideoInfo videoInfo)
         {
             return this.TraceAction(
                 ActivitySource,
-                nameof(VideoRepository),
+                nameof(VideoInfoRepository),
                 () =>
                 {
                     var sql = @"INSERT INTO VideoInfo
@@ -84,7 +84,7 @@ namespace VideoTranslate.DataAccess.Repositories
 
                     return videoId;
                 },
-                nameof(this.InsertVideo));
+                nameof(this.InsertVideoInfo));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace VideoTranslate.Shared.Abstractions.Services
 {
-    public interface IVideoService
+    public interface IVideoInfoService
     {
         VideoInfo GetVideoById(Guid videoInfoId);
         List<VideoInfo> GetAllVideos();
