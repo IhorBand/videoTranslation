@@ -8,6 +8,9 @@ namespace VideoTranslate.WebAPI.Infrastructure.MappingProfiles
         {
             this.CreateMap<Shared.DTO.VideoInfo, WebApiClient.DTO.VideoInfo>()
                 .ReverseMap();
+
+            this.CreateMap<Shared.DTO.VideoFile, WebApiClient.DTO.VideoFile>()
+                .ReverseMap();
         }
 
         /*
