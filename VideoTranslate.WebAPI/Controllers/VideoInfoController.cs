@@ -13,17 +13,20 @@ namespace VideoTranslate.WebAPI.Controllers
         private readonly IMapper mapper;
         private readonly IVideoInfoService videoService;
         private readonly IFileService fileService;
+        private readonly IVideoFileService videoFileService;
 
         public VideoInfoController(
             ILogger<VideoInfoController> logger,
             IMapper mapper,
             IVideoInfoService videoService,
-            IFileService fileService)
+            IFileService fileService,
+            IVideoFileService videoFileService)
         {
             this.logger = logger;
             this.mapper = mapper;
             this.videoService = videoService;
             this.fileService = fileService;
+            this.videoFileService = videoFileService;
         }
 
         [HttpGet("All")]
@@ -40,6 +43,14 @@ namespace VideoTranslate.WebAPI.Controllers
             var videoInfo = this.videoService.GetVideoInfoById(videoInfoId);
             var videoInfoModel = this.mapper.Map<VideoInfo>(videoInfo);
             return videoInfoModel;
+        }
+
+        [HttpGet("{videoInfoId}/VideoFiles")]
+        public IEnumerable<VideoFile> GetVideoFilesByVideoInfo([FromRoute(Name = "videoInfoId")] Guid videoInfoId)
+        {
+            var videoFiles = this.videoFileService.GetVideoFilesByVideoInfo(videoInfoId);
+            var videoFileModels = this.mapper.Map<VideoFile[]>(videoFiles);
+            return videoFileModels;
         }
 
         [HttpPost("")]

@@ -195,8 +195,9 @@ namespace VideoTranslate.WebAPI
             services.AddScoped<IVideoFileRepository, VideoFileRepository>();
             services.AddScoped<IVideoInfoRepository, VideoInfoRepository>();
 
-            services.AddScoped<IVideoInfoService, VideoInfoService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IVideoFileService, VideoFileService>();
+            services.AddScoped<IVideoInfoService, VideoInfoService>();
         }
 
         private Task WriteResponseAsync(HttpContext httpContext, HealthReport result)
