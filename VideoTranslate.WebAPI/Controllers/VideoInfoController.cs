@@ -27,7 +27,7 @@ namespace VideoTranslate.WebAPI.Controllers
         }
 
         [HttpGet("All")]
-        public IEnumerable<VideoInfo> Get()
+        public IEnumerable<VideoInfo> GetAll()
         {
             var videoInfos = this.videoService.GetAllVideoInfos();
             var videoInfoModels = this.mapper.Map<VideoInfo[]>(videoInfos);
@@ -55,17 +55,17 @@ namespace VideoTranslate.WebAPI.Controllers
         [RequestFormLimits(MultipartBodyLengthLimit = 1073741824)]
         public VideoInfo UploadVideoFile()
         {
-            var file = this.fileService.UploadVideoFile(this.Request.Form.Files[0]);
-            var fileModel = this.mapper.Map<VideoInfo>(file);
-            return fileModel;
+            var videoInfo = this.fileService.UploadVideoFile(this.Request.Form.Files[0]);
+            var videoInfoModel = this.mapper.Map<VideoInfo>(videoInfo);
+            return videoInfoModel;
         }
 
         [HttpPost("{videoInfoId}/UploadThumbnail")]
         public VideoInfo UploadThumbnail([FromRoute(Name = "videoInfoId")] Guid videoInfoId)
         {
-            var file = this.fileService.UploadThumbnail(this.Request.Form.Files[0], videoInfoId);
-            var fileModel = this.mapper.Map<VideoInfo>(file);
-            return fileModel;
+            var videoInfo = this.fileService.UploadThumbnail(this.Request.Form.Files[0], videoInfoId);
+            var videoInfoModel = this.mapper.Map<VideoInfo>(videoInfo);
+            return videoInfoModel;
         }
     }
 }

@@ -65,14 +65,18 @@ namespace VideoTranslate.DataAccess.Repositories
                     var sql = @"UPDATE [dbo].[VideoInfo] 
                         SET
                             Name = @Name,
-                            Description = @Description
+                            Description = @Description,
+                            ThumbnailFileId = @ThumbnailFileId,
+                            ThumbnailUrl = @ThumbnailUrl
                         WHERE Id = @Id";
 
                     var prms = new
                     {
                         Id = videoInfo.Id,
                         Name = videoInfo.Name,
-                        Description = videoInfo.Description
+                        Description = videoInfo.Description,
+                        ThumbnailFileId = videoInfo.ThumbnailFileId,
+                        ThumbnailUrl = videoInfo.ThumbnailUrl
                     };
 
                     this.Execute(sql, prms);
@@ -90,13 +94,17 @@ namespace VideoTranslate.DataAccess.Repositories
                     var sql = @"INSERT INTO [dbo].[VideoInfo]
                         (
                             [Name], 
-                            [Description]
+                            [Description],
+                            [ThumbnailFileId],
+                            [ThumbnailUrl]
                         )
                         OUTPUT INSERTED.Id
                         VALUES
                         (
                             @Name, 
-                            @Description
+                            @Description,
+                            @ThumbnailFileId,
+                            @ThumbnailUrl
                         )";
 
                     var videoId = this.QuerySingle<Guid>(
@@ -104,7 +112,9 @@ namespace VideoTranslate.DataAccess.Repositories
                         new
                         {
                             Name = videoInfo.Name,
-                            Description = videoInfo.Description
+                            Description = videoInfo.Description,
+                            ThumbnailFileId = videoInfo.ThumbnailFileId,
+                            ThumbnailUrl = videoInfo.ThumbnailUrl
                         });
 
                     return videoId;

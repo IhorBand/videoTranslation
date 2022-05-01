@@ -82,7 +82,9 @@ namespace VideoTranslate.Service.Services
                     var videoInfoId = this.videoInfoRepository.InsertVideoInfo(new VideoInfo()
                     {
                         Name = string.Empty,
-                        Description = string.Empty
+                        Description = string.Empty,
+                        ThumbnailFileId = null,
+                        ThumbnailUrl = null
                     });
 
                     var videoFileId = this.videoFileRepository.InsertVideoFile(new VideoFile()
@@ -143,6 +145,7 @@ namespace VideoTranslate.Service.Services
                     var videoInfo = this.videoInfoRepository.GetVideoInfoById(videoInfoId);
 
                     videoInfo.ThumbnailFileId = fileId;
+                    videoInfo.ThumbnailUrl = fileSaveModel.Url;
 
                     this.videoInfoRepository.UpdateVideoInfo(videoInfo);
 
