@@ -4,6 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 pool: Default
+name: $(BuildDefinitionName)_$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
 
 variables:
   solution: '**/*.sln'
@@ -31,11 +32,12 @@ steps:
 #    arguments: '--no-restore --no-build'
 #  displayName: 'Run Tests'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/VideoTranslate.Shared.csproj'
-    versioningScheme: 'off'
+    nobuild: true
+    versioningScheme: 'byBuildNumber'
   displayName: 'Pack Shared Project'
 
 - task: NuGetCommand@2
