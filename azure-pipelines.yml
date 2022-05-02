@@ -36,6 +36,7 @@ steps:
     command: 'pack'
     packagesToPack: '**/VideoTranslate.Shared.csproj'
     versioningScheme: 'off'
+  displayName: 'Pack Shared Project'
 
 - task: NuGetCommand@2
   inputs:
@@ -43,6 +44,7 @@ steps:
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'videoTranslate Nuget Artifactory'
+  displayName: 'Publish Shared Project'
 
 - task: CmdLine@2
   inputs:
