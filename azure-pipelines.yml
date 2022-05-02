@@ -50,7 +50,8 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'external'
-  displayName: 'Publish Shared Project'
+    publishFeedCredentials: 'videoTranslate Nuget Artifactory'
+  displayName: 'Push Shared Project to Artifactory'
 
 - task: CmdLine@2
   inputs:
