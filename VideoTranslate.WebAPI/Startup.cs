@@ -178,6 +178,8 @@ namespace VideoTranslate.WebAPI
         {
             var connectionStrings = this.Configuration.GetSection("ConnectionStrings").Get<ConnectionStringConfiguration>();
             services.AddSingleton(connectionStrings);
+            var rabbitMQConfiguration = this.Configuration.GetSection("RabbitMQ").Get<RabbitMQConfiguration>();
+            services.AddSingleton(rabbitMQConfiguration);
 
             // AutoMapper Configuration
             var mapperConfig = new MapperConfiguration(mc =>
