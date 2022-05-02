@@ -36,7 +36,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/VideoTranslate.Shared.csproj'
-    nobuild: true
+    nobuild: false
     versioningScheme: 'byBuildNumber'
   displayName: 'Pack Shared Project'
 
