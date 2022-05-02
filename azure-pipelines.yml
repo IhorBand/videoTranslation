@@ -40,12 +40,16 @@ steps:
     versioningScheme: 'byBuildNumber'
   displayName: 'Pack Shared Project'
 
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'videoTranslate Nuget Artifactory'
+  displayName: 'Authenticate to JFrog'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'videoTranslate Nuget Artifactory'
   displayName: 'Publish Shared Project'
 
 - task: CmdLine@2
