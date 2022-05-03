@@ -48,11 +48,14 @@ steps:
   displayName: 'Pack Shared Project'
 
 - task: DotNetCoreCLI@2
+  displayName: Push Nuget Package
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/Shared/*.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'videoTranslate Nuget Artifactory'
+    command: custom
+    custom: nuget
+    arguments: >
+      push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg
+      -s $(JFrog-VideoTranslate)
+      -k $(JFrog-Username):$(JFrog-Password)
 
 # - task: CmdLine@2
 #   inputs:
