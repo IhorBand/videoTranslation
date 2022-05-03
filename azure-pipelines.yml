@@ -49,8 +49,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg --source $(JFrog-VideoTranslate) --api-key igor.bandura.3@gmail.com:AKCp8mYeEXWmGGAqp4AUxLDUHzAPjBKdpWmirGYkCJezFVFS82SpWr6FSnNJSSbAcLrXmSHx6'
-    #script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg --source $(JFrog-VideoTranslate) --api-key $(JFrog-Username):$(JFrog-Password)'
+    script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg --source $(JFrog-VideoTranslate) --api-key $(JFrog-Username):$(JFrog-Password)'
   displayName: 'Push Shared Project to Artifactory'
 
 - task: CmdLine@2
