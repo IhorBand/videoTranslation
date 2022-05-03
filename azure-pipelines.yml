@@ -47,11 +47,6 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)/Shared'
   displayName: 'Pack Shared Project'
 
-- task: NuGetAuthenticate@0
-  inputs:
-    nuGetServiceConnections: 'videoTranslate Nuget Artifactory'
-    forceReinstallCredentialProvider: true
-
 - task: DotNetCoreCLI@2
   inputs:
     command: 'push'
