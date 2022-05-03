@@ -47,10 +47,17 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)/Shared'
   displayName: 'Pack Shared Project'
 
-- task: CmdLine@2
+- task: DotNetCoreCLI@2
   inputs:
-    script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg --source $(JFrog-VideoTranslate) --api-key $(JFrog-Username):$(JFrog-Password)'
-  displayName: 'Push Shared Project to Artifactory'
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/Shared/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'videoTranslate Nuget Artifactory'
+
+# - task: CmdLine@2
+#   inputs:
+#     script: 'dotnet nuget push $(Build.ArtifactStagingDirectory)/Shared/*.nupkg --source $(JFrog-VideoTranslate) --api-key $(JFrog-Username):$(JFrog-Password)'
+#   displayName: 'Push Shared Project to Artifactory'
 
 - task: CmdLine@2
   inputs:
