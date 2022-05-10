@@ -53,11 +53,13 @@ namespace VideoTranslate.WebAPI.Controllers
             return videoFileModels;
         }
 
-        [HttpGet("SendMessageToRabbitMQ")]
-        public bool SendHelloWorldToRabbitMQ([FromQuery(Name = "message")] string message)
+        [HttpPost("{videoInfoId}/RecognizeVoiceFromVideo")]
+        public void RecognizeVoiceFromVideo([FromRoute(Name = "videoInfoId")] Guid videoInfoId)
         {
-            var val = this.videoFileService.SendMessageToRabbitMQ(message);
-            return val;
+            this.videoService.SendVideoConvertRecognizeCommand(new Shared.DTO.MQModels.ConvertVideoRecognizeCommand()
+            {
+                VideoInfoId = videoInfoId
+            });
         }
 
         [HttpPost("")]

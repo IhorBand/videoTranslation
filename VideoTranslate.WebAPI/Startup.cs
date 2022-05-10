@@ -28,12 +28,14 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 using VideoTranslate.DataAccess.Repositories;
+using VideoTranslate.Service.MQServices;
 using VideoTranslate.Service.Providers;
 using VideoTranslate.Service.Services;
 using VideoTranslate.Service.Validators;
 using VideoTranslate.Shared.Abstractions.Providers;
 using VideoTranslate.Shared.Abstractions.Repositories;
 using VideoTranslate.Shared.Abstractions.Services;
+using VideoTranslate.Shared.Abstractions.Services.MQServices;
 using VideoTranslate.Shared.Abstractions.Validators;
 using VideoTranslate.Shared.DTO.Configuration;
 using VideoTranslate.WebAPI.Infrastructure.MappingProfiles;
@@ -180,6 +182,8 @@ namespace VideoTranslate.WebAPI
             services.AddSingleton(connectionStrings);
             var rabbitMQConfiguration = this.Configuration.GetSection("RabbitMQ").Get<RabbitMQConfiguration>();
             services.AddSingleton(rabbitMQConfiguration);
+            var folderPathConfiguration = this.Configuration.GetSection("FolderPaths").Get<FolderPathConfiguration>();
+            services.AddSingleton(folderPathConfiguration);
 
             // AutoMapper Configuration
             var mapperConfig = new MapperConfiguration(mc =>
@@ -191,6 +195,7 @@ namespace VideoTranslate.WebAPI
             services.AddSingleton(mapper);
 
             services.AddSingleton<IPasswordValidator, PasswordValidator>();
+            services.AddSingleton<IFFmpegQueueService, FFmpegQueueService>();
 
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IFileServerRepository, FileServerRepository>();

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using VideoTranslate.Shared.Abstractions.Repositories;
 using VideoTranslate.Shared.Abstractions.Services;
 using VideoTranslate.Shared.DTO;
+using VideoTranslate.Shared.DTO.Configuration;
 
 namespace VideoTranslate.Service.Services
 {
@@ -21,6 +22,7 @@ namespace VideoTranslate.Service.Services
         private static readonly ActivitySource ActivitySource = new ActivitySource(ActivitySourceName, Version?.ToString());
 
         private readonly ILogger<FileService> logger;
+        private readonly FolderPathConfiguration folderPathConfiguration;
         private readonly IFileServerRepository fileServerRepository;
         private readonly IFileRepository fileRepository;
         private readonly IVideoInfoRepository videoInfoRepository;
@@ -28,16 +30,18 @@ namespace VideoTranslate.Service.Services
 
         public FileService(
             ILogger<FileService> logger,
+            FolderPathConfiguration folderPathConfiguration,
             IFileServerRepository fileServerRepository,
             IFileRepository fileRepository,
             IVideoInfoRepository videoInfoRepository,
             IVideoFileRepository videoFileRepository)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.fileServerRepository = fileServerRepository;
-            this.fileRepository = fileRepository;
-            this.videoInfoRepository = videoInfoRepository;
-            this.videoFileRepository = videoFileRepository;
+            this.folderPathConfiguration = folderPathConfiguration ?? throw new ArgumentNullException(nameof(folderPathConfiguration));
+            this.fileServerRepository = fileServerRepository ?? throw new ArgumentNullException(nameof(fileServerRepository));
+            this.fileRepository = fileRepository ?? throw new ArgumentNullException(nameof(fileRepository));
+            this.videoInfoRepository = videoInfoRepository ?? throw new ArgumentNullException(nameof(videoInfoRepository));
+            this.videoFileRepository = videoFileRepository ?? throw new ArgumentNullException(nameof(videoFileRepository));
         }
 
         public VideoInfo UploadVideoFile(IFormFile file)
@@ -47,9 +51,12 @@ namespace VideoTranslate.Service.Services
                 nameof(FileService),
                 () =>
                 {
+                    // http://fileserver.com/
                     var fileServer = this.fileServerRepository.GetActiveFileServer();
-                    fileServer.Path += "videos/";
-                    fileServer.Url += "videos/";
+
+                    // http://fileserver.com/videos/
+                    var videoPath = fileServer.Path + this.folderPathConfiguration.Videos;
+                    var videoUrl = fileServer.Url + this.folderPathConfiguration.Videos;
 
                     var fileExtension = Path.GetExtension(file.FileName);
                     if (string.IsNullOrEmpty(fileExtension))
@@ -57,11 +64,20 @@ namespace VideoTranslate.Service.Services
                         fileExtension = ".mp4";
                     }
 
-                    var filename = Guid.NewGuid().ToString() + fileExtension;
+                    var videoFileFolderId = Guid.NewGuid().ToString();
+                    var filename = videoFileFolderId + fileExtension;
 
-                    var filePath = Path.Combine(fileServer.Path, filename);
+                    // http://fileserver.com/videos/{id}/
+                    videoPath += videoFileFolderId + "/";
+                    videoUrl += videoFileFolderId + "/";
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    Directory.CreateDirectory(videoPath);
+
+                    // http://fileserver.com/videos/{id}/{filename}
+                    videoPath = Path.Combine(videoPath, filename);
+                    videoUrl += filename;
+
+                    using (var stream = new FileStream(videoPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
@@ -73,8 +89,8 @@ namespace VideoTranslate.Service.Services
                         FileServerId = fileServer.Id,
                         FileTypeId = FileType.Video,
                         Size = file.Length,
-                        FullPath = filePath,
-                        Url = fileServer.Url + filename,
+                        FullPath = videoPath,
+                        Url = videoUrl,
                     };
 
                     var fileId = this.fileRepository.InsertFile(fileSaveModel);
@@ -93,7 +109,8 @@ namespace VideoTranslate.Service.Services
                         VideoInfoId = videoInfoId,
                         VideoTypeId = VideoType.Original,
                         ResolutionHeight = 0,
-                        ResolutionWidth = 0
+                        ResolutionWidth = 0,
+                        Url = videoUrl
                     });
 
                     var videoInfo = this.videoInfoRepository.GetVideoInfoById(videoInfoId);
@@ -111,8 +128,8 @@ namespace VideoTranslate.Service.Services
                 () =>
                 {
                     var fileServer = this.fileServerRepository.GetActiveFileServer();
-                    fileServer.Path += "images/";
-                    fileServer.Url += "images/";
+                    fileServer.Path += this.folderPathConfiguration.Images;
+                    fileServer.Url += this.folderPathConfiguration.Images;
 
                     var fileExtension = Path.GetExtension(file.FileName);
                     if (string.IsNullOrEmpty(fileExtension))

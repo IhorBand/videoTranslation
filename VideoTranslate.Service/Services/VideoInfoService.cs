@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using VideoTranslate.Shared.Abstractions.Repositories;
 using VideoTranslate.Shared.Abstractions.Services;
+using VideoTranslate.Shared.Abstractions.Services.MQServices;
 using VideoTranslate.Shared.DTO;
+using VideoTranslate.Shared.DTO.MQModels;
 
 namespace VideoTranslate.Service.Services
 {
@@ -18,13 +20,17 @@ namespace VideoTranslate.Service.Services
         private static readonly Version Version = typeof(VideoInfoService).Assembly.GetName().Version;
         private static readonly ActivitySource ActivitySource = new ActivitySource(ActivitySourceName, Version?.ToString());
 
+        private readonly IFFmpegQueueService ffmpegQueueService;
+
         private readonly IVideoInfoRepository videoRepository;
         private readonly ILogger<VideoInfoService> logger;
 
         public VideoInfoService(
+            IFFmpegQueueService ffmpegQueueService,
             IVideoInfoRepository videoRepository,
             ILogger<VideoInfoService> logger)
         {
+            this.ffmpegQueueService = ffmpegQueueService ?? throw new ArgumentNullException(nameof(ffmpegQueueService));
             this.videoRepository = videoRepository ?? throw new ArgumentNullException(nameof(videoRepository));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -63,6 +69,18 @@ namespace VideoTranslate.Service.Services
                     this.videoRepository.UpdateVideoInfo(videoInfo);
                 },
                 nameof(this.InsertVideoInfo));
+        }
+
+        public void SendVideoConvertRecognizeCommand(ConvertVideoRecognizeCommand convertVideoRecognizeCommand)
+        {
+            this.TraceAction(
+                ActivitySource,
+                nameof(VideoInfoService),
+                () =>
+                {
+                    this.ffmpegQueueService.SendConvertVideoRecognizeCommand(convertVideoRecognizeCommand);
+                },
+                nameof(this.SendVideoConvertRecognizeCommand));
         }
 
         public VideoInfo InsertVideoInfo(VideoInfo videoInfo)
