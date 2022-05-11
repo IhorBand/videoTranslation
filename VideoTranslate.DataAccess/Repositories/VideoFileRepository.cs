@@ -44,6 +44,27 @@ namespace VideoTranslate.DataAccess.Repositories
                 nameof(this.GetVideoFilesByVideoInfo));
         }
 
+        public VideoFile GetOriginalVideoByVideoInfoId(Guid videoInfoId)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(VideoFileRepository),
+                () =>
+                {
+                    var sql = @"
+                        SELECT TOP 1
+                            [VideoFile].*, 
+                            [File].[Url] 
+                        FROM [dbo].[VideoFile] 
+                        JOIN [File] ON [VideoFile].[FileId] = [File].[Id]
+                        WHERE [VideoFile].[VideoInfoId] = @VideoInfoId 
+                            AND [VideoFile].[IsOriginal] = 1";
+                    var videoInfo = this.QuerySingle<VideoFile>(sql, new { VideoInfoId = videoInfoId });
+                    return videoInfo;
+                },
+                nameof(this.GetOriginalVideoByVideoInfoId));
+        }
+
         public Guid InsertVideoFile(VideoFile videoFile)
         {
             return this.TraceAction(
@@ -57,7 +78,8 @@ namespace VideoTranslate.DataAccess.Repositories
                             [FileId],
                             [VideoTypeId],
                             [ResolutionWidth],
-                            [ResolutionHeight]
+                            [ResolutionHeight],
+                            [IsOriginal]
                         )
                         OUTPUT INSERTED.Id
                         VALUES
@@ -66,7 +88,8 @@ namespace VideoTranslate.DataAccess.Repositories
                             @FileId,
                             @VideoTypeId,
                             @ResolutionWidth,
-                            @ResolutionHeight
+                            @ResolutionHeight,
+                            @IsOriginal
                         )";
 
                     var videoId = this.QuerySingle<Guid>(
@@ -78,6 +101,7 @@ namespace VideoTranslate.DataAccess.Repositories
                             VideoTypeId = videoFile.VideoTypeId,
                             ResolutionWidth = videoFile.ResolutionWidth,
                             ResolutionHeight = videoFile.ResolutionHeight,
+                            IsOriginal = videoFile.IsOriginal
                         });
 
                     return videoId;

@@ -15,5 +15,6 @@ namespace VideoTranslate.WebApiClient.DTO
         public int ResolutionWidth { get; set; }
         public int ResolutionHeight { get; set; }
         public string? Url { get; set; }
+        public bool IsOriginal { get; set; }
     }
 }

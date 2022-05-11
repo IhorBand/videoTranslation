@@ -10,5 +10,6 @@
         public int ResolutionHeight { get; set; }
         public string? Url { get; set; }
         public DateTime CreatedOnUtc { get; set; }
+        public bool IsOriginal { get; set; }
     }
 }
