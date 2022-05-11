@@ -46,42 +46,17 @@ namespace VideoTranslate.Service.Services
                 nameof(this.GetVideoFilesByVideoInfo));
         }
 
-        public bool SendMessageToRabbitMQ(string message)
+        public VideoFile GetOriginalVideoByVideoInfoId(Guid videoInfoId)
         {
             return this.TraceAction(
                 ActivitySource,
                 nameof(VideoFileService),
                 () =>
                 {
-                    var factory = new ConnectionFactory()
-                    {
-                        HostName = this.rabbitMQConfiguration.HostName,
-                        UserName = this.rabbitMQConfiguration.User,
-                        Password = this.rabbitMQConfiguration.Password
-                    };
-
-                    using (var connection = factory.CreateConnection())
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(
-                            queue: "hello",
-                            durable: false,
-                            exclusive: false,
-                            autoDelete: false,
-                            arguments: null);
-
-                        var body = Encoding.UTF8.GetBytes(message);
-
-                        channel.BasicPublish(
-                            exchange: string.Empty,
-                            routingKey: "hello",
-                            basicProperties: null,
-                            body: body);
-                    }
-
-                    return true;
+                    var videoFile = this.videoFileRepository.GetOriginalVideoByVideoInfoId(videoInfoId);
+                    return videoFile;
                 },
-                nameof(this.SendMessageToRabbitMQ));
+                nameof(this.GetOriginalVideoByVideoInfoId));
         }
     }
 }
