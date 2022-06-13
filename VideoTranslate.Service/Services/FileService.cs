@@ -44,6 +44,18 @@ namespace VideoTranslate.Service.Services
             this.videoFileRepository = videoFileRepository ?? throw new ArgumentNullException(nameof(videoFileRepository));
         }
 
+        public Shared.DTO.File GetById(Guid fileId)
+        {
+            return this.TraceAction(
+                ActivitySource,
+                nameof(FileService),
+                () =>
+                {
+                    return this.fileRepository.GetFile(fileId);
+                },
+                nameof(this.GetById));
+        }
+
         public VideoInfo UploadVideoFile(IFormFile file)
         {
             return this.TraceAction(
